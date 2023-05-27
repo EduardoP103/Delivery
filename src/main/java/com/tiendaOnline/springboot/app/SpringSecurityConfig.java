@@ -24,7 +24,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// Asignamos nuestras rutas publicas
 		http.authorizeRequests()
-		.antMatchers("/css/**", "/js/**", "/assets/**","/","principal","/home","/inicio","/logeo","login","/rest/**").permitAll()
+		.antMatchers("/css/**", "/js/**", "/assets/**","/","bienvenido","/home","/inicio","/logeo","login","/rest/**").permitAll()
 		// Asignamos las rutas que queremos PROTEGER
 		.antMatchers("/cliente/listar").hasAnyRole("LECTOR","ADMIN","CREADOR","EDITOR","DEPURADOR")
 		.antMatchers("/cliente/nuevo").hasAnyRole("ADMIN")
@@ -33,7 +33,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/cliente/eliminar/**").hasAnyRole("ADMIN","DEPURADOR")
 		.anyRequest().authenticated()
 		.and()
-		.formLogin().loginPage("/login").defaultSuccessUrl("/principal", true).permitAll()
+		.formLogin().loginPage("/login").defaultSuccessUrl("/bienvenido", true).permitAll()
 		.and()
 		.logout().permitAll();
 	}
@@ -45,10 +45,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		PasswordEncoder encoder = 	PasswordEncoderFactories.createDelegatingPasswordEncoder();	
 		// Creamos usuarios y asignamos roles
 		builder.inMemoryAuthentication()
-		.withUser("JESUS").password(encoder.encode("JESUS")).roles("ADMIN").and()
+		.withUser("EDUARDO").password(encoder.encode("EDUARDO")).roles("ADMIN").and()
 		.withUser("DANIEL").password(encoder.encode("DANIEL")).roles("EDITOR").and()
 		.withUser("HUGO").password(encoder.encode("HUGO")).roles("LECTOR").and()
-		.withUser("EDUARDO").password(encoder.encode("EDUARDO")).roles("CREADOR").and()
+		.withUser("JESUS").password(encoder.encode("JESUS")).roles("CREADOR").and()
 		.withUser("EDGAR").password(encoder.encode("EDGAR")).roles("DEPURADOR");
 		
 		
